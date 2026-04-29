@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ Kuromi Calc ✦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="stars" id="stars"></div>
+
+    <div class="kuromi-side kuromi-left"><img src="assets/kuromi-main.png" alt="Kuromi"></div>
+    <div class="kuromi-side kuromi-right"><img src="assets/kuromi-main.png" alt="Kuromi"></div>
+
+    <div class="card">
+        <div class="card-topper">
+            <img src="assets/kuromi-head.png" alt="Kuromi Topper">
+        </div>
+        
+        <h1 class="title"><span>✦</span> KUROMI CALC <span>✦</span></h1>
+
+        <div class="display">
+            <div class="display-label">
+                <span id="disp-from">THAI BAHT → INR</span>
+                <span class="mode-badge" id="disp-mode">THB</span>
+            </div>
+            <div class="display-sub">base price</div>
+            <div class="display-main">
+                <span class="currency" id="disp-currency">₹</span>
+                <span id="disp-value">0.00</span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="setMode('thb')" id="tab-thb">THB BAHT</button>
+            <button class="tab" onclick="setMode('idr')" id="tab-idr">IDR INA</button>
+        </div>
+
+        <div class="input-group">
+            <label id="input-label">BAHT AMOUNT</label>
+            <input type="number" id="amount" value="100" oninput="calculate()">
+        </div>
+
+        <button class="btn-convert" onclick="calculate()">✦ CONVERT ✦</button>
+
+        <div class="fees-header">✦ ADD FEES ✦</div>
+        <div class="fees-grid">
+            <div class="fee-row">
+            <label>shipping</label>
+            <input type="number" id="fee-shipping" value="0" oninput="updateTotal()">
+            </div>
+            <div class="fee-row">
+            <label>other</label>
+            <input type="number" id="fee-other" value="0" oninput="updateTotal()">
+            </div>
+        </div>
+
+        <div class="total-row">
+            <span class="total-label">✦ TOTAL</span>
+            <span class="total-val" id="total-val">₹ 0.00</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
