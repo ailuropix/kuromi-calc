@@ -4,10 +4,10 @@ let baseINR = 0;
 // --- CONVERSION FORMULAS ---
 function thbToINR(p) { return ((((p * 595 / 15700 + 0.32) * 4 / 100) + (p * 595 / 15700 + 0.32)) + 0.5) * 100; }
 function idrToINR(p) { return (((p / 15700 + 0.32) * 4 / 100) + (p / 15700 + 0.32) + 1) * 100; }
-function twdToINR(p) { return (p * 4) + 100; }
-function cnyToINR(p) { return (p * 16.6) + 100; }
-function krwToINR(p) { return (p * 0.07) + 100; } // Placeholder: Replace 0.07 with your rate
-function jpyToINR(p) { return (p * 0.62) + 100; } // Placeholder: Replace 0.62 with your rate
+function twdToINR(p) { return (p * 4) + 100; } 
+function cnyToINR(p) { return (p * 17) + 100; } // UPDATED: price * 17 + 100
+function krwToINR(p) { return (p * 0.075) + 100; } 
+function jpyToINR(p) { return (p * 0.65) + 100; }  
 
 function getConvertedValue(amount) {
     switch(mode) {
@@ -23,20 +23,19 @@ function getConvertedValue(amount) {
 
 function setMode(m) {
     mode = m;
-    // Update active tab UI
     const allTabs = ['thb', 'idr', 'twd', 'cny', 'krw', 'jpy'];
     allTabs.forEach(t => {
-        document.getElementById(`tab-${t}`).classList.toggle('active', t === m);
+        const tabEl = document.getElementById(`tab-${t}`);
+        if (tabEl) tabEl.classList.toggle('active', t === m);
     });
 
-    // Update Display Labels
     const labels = {
-        'thb': ['THB → INR', 'THB', 'BAHT AMOUNT'],
-        'idr': ['IDR → INR', 'IDR', 'RUPIAH AMOUNT'],
-        'twd': ['TWD → INR', 'TWD', 'NT DOLLAR AMOUNT'],
-        'cny': ['CNY → INR', 'CNY', 'YUAN AMOUNT'],
-        'krw': ['KRW → INR', 'KRW', 'WON AMOUNT'],
-        'jpy': ['JPY → INR', 'JPY', 'YEN AMOUNT']
+        'thb': ['THAI BAHT - INR', 'THB', 'BAHT AMOUNT'],
+        'idr': ['INDONESIAN IDR - INR', 'IDR', 'RUPIAH AMOUNT'],
+        'twd': ['TWD - INR', 'TWD', 'NT DOLLAR AMOUNT'],
+        'cny': ['CNY - INR', 'CNY', 'YUAN AMOUNT'],
+        'krw': ['KRW - INR', 'KRW', 'WON AMOUNT'],
+        'jpy': ['JPY - INR', 'JPY', 'YEN AMOUNT']
     };
     
     document.getElementById('disp-from').textContent = labels[m][0];
@@ -57,14 +56,11 @@ function updateTotal() {
     const amt = parseFloat(document.getElementById('amount').value) || 0;
     const shipping = parseFloat(document.getElementById('fee-shipping').value) || 0;
     const other = parseFloat(document.getElementById('fee-other').value) || 0;
-
     const totalRaw = amt + shipping + other;
     const finalTotalINR = getConvertedValue(totalRaw);
-
     document.getElementById('total-val').textContent = '₹ ' + finalTotalINR.toFixed(2);
 }
 
-// Galaxy Generator
 function createPixelGalaxy() {
     const starContainer = document.getElementById('stars');
     if (!starContainer) return;
