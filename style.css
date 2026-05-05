@@ -16,9 +16,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden;
+    overflow: hidden; /* FIXED: Removes unnecessary scrollbar */
     position: relative;
-    padding: 60px 0;
 }
 
 .bg-layer {
@@ -26,7 +25,14 @@ body {
     background: radial-gradient(circle at 50% 50%, var(--deep-purple) 0%, var(--black) 100%);
 }
 
-#stars { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+/* FIXED: Stars container now stays within the viewport strictly */
+#stars { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 2; 
+    pointer-events: none;
+    overflow: hidden; 
+}
 
 /* --- Floating Elements --- */
 .pixel-element {
@@ -58,7 +64,7 @@ body {
 
 .card-topper {
     position: absolute; 
-    top: -95px; /* Adjust this so she sits right on the edge */
+    top: -65px; /* Desktop height */
     left: 50%; 
     transform: translateX(-50%);
     width: 135px; 
@@ -80,31 +86,31 @@ body {
 .display-sub { font-size: 10px; color: var(--white) !important; font-family: 'VT323', monospace; opacity: 1 !important; }
 .display-main { font-family: 'VT323'; font-size: 32px; color: #fff !important; text-shadow: 0 0 10px var(--accent); }
 
-/* --- 2x3 TABS GRID FIX (FORCED) --- */
+/* --- TABS GRID --- */
 .tabs { 
-    display: grid !important; 
-    grid-template-columns: repeat(3, 1fr) !important; /* Forces 2 columns */
-    gap: 10px !important; 
-    margin-bottom: 15px !important; 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 8px; 
+    margin-bottom: 15px; 
 }
 
 .tab { 
-    background: transparent !important; 
-    border: 1.5px solid var(--accent) !important; 
-    color: #ffffff !important; /* FORCED WHITE FONT */
-    padding: 8px 2px !important; 
-    font-size: 7px !important; 
-    cursor: pointer !important; 
-    font-family: 'Press Start 2P', monospace !important; 
-    border-radius: 4px !important;
-    transition: 0.2s !important;
+    background: transparent; 
+    border: 1.5px solid var(--accent); 
+    color: #ffffff !important; 
+    padding: 8px 2px; 
+    font-size: 7px; 
+    cursor: pointer; 
+    font-family: 'Press Start 2P'; 
+    border-radius: 4px;
+    transition: 0.2s;
 }
 
 .tab.active { 
     background: var(--accent) !important; 
-    color: #ffffff !important; /* STAY WHITE WHEN ACTIVE */
-    text-shadow: 0 0 5px rgba(255,255,255,0.8) !important;
-    box-shadow: 0 0 15px var(--accent) !important;
+    color: #ffffff !important; 
+    text-shadow: 0 0 5px rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px var(--accent);
 }
 
 .input-group label { font-size: 6px; color: var(--accent) !important; display: block; margin-bottom: 8px; }
@@ -117,7 +123,7 @@ body {
 .fee-row label { font-size: 6px; color: var(--white) !important; }
 .fee-row input { width: 80px; background: #000; border: 1px solid var(--accent); color: #fff !important; font-family: 'VT323'; font-size: 18px; text-align: right; }
 
-/* --- TOTAL FIX --- */
+/* --- TOTAL ROW --- */
 .total-row { border-top: 2px solid var(--accent); margin-top: 10px; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; }
 .total-label { font-size: 8px; color: var(--accent) !important; }
 .total-val { font-family: 'VT323'; font-size: 26px; color: #fff !important; text-shadow: 0 0 10px var(--accent); }
@@ -139,9 +145,16 @@ body {
 .kuromi-left { left: 0; transform: scaleX(-1); }
 .kuromi-right { right: 0; }
 
+/* --- MOBILE SPECIFIC FIXES --- */
 @media (max-width: 600px) {
     .kuromi-side { width: 140px; opacity: 0.3; }
-    .card { margin-top: 90px; }
+    .card { margin-top: 110px; } /* Pushes card down slightly more */
     .display-main { font-size: 26px; }
     .tab { font-size: 6.5px; padding: 8px 1px; }
+
+    /* FIXED: Moves head topper UP so it doesn't overlap the title text */
+    .card-topper { 
+        top: -85px !important; 
+        width: 120px !important; 
+    }
 }
