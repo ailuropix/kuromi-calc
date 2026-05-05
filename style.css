@@ -58,7 +58,7 @@ body {
 
 .card-topper {
     position: absolute; 
-    top: -75px; /* Adjust this so she sits right on the edge */
+    top: -95px; /* Adjust this so she sits right on the edge */
     left: 50%; 
     transform: translateX(-50%);
     width: 135px; 
