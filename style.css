@@ -94,8 +94,28 @@ body {
 .display-sub { font-size: 10px; color: var(--white) !important; font-family: 'VT323', monospace; opacity: 0.8; }
 .display-main { font-family: 'VT323'; font-size: 32px; color: #fff !important; text-shadow: 0 0 10px var(--accent); }
 
-.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-.tab { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px; font-size: 6px; cursor: pointer; font-family: 'Press Start 2P'; }
+.tabs { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* 3 columns to fit all 6 */
+    gap: 8px; 
+    margin-bottom: 15px; 
+}
+
+.tab { 
+    background: transparent; 
+    border: 1.5px solid var(--accent); 
+    color: var(--accent) !important; 
+    padding: 10px 5px; /* Slightly taller for easier clicking */
+    font-size: 7px; 
+    cursor: pointer; 
+    font-family: 'Press Start 2P'; 
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .tabs { gap: 5px; }
+    .tab { font-size: 6px; padding: 8px 2px; }
+}
 .tab.active { background: var(--accent); color: #fff; }
 
 .input-group label { font-size: 6px; color: var(--accent); display: block; margin-bottom: 8px; }

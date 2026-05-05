@@ -1,68 +1,84 @@
 let mode = 'thb';
 let baseINR = 0;
 
-// Your specific formulas
-function thbToINR(b) {
-    const p = (((b * 595) / 15700) + 0.32);
-    return ((((p * 4) / 100) + p) + 0.5) * 100;
-}
+// --- CONVERSION FORMULAS ---
+function thbToINR(p) { return ((((p * 595 / 15700 + 0.32) * 4 / 100) + (p * 595 / 15700 + 0.32)) + 0.5) * 100; }
+function idrToINR(p) { return (((p / 15700 + 0.32) * 4 / 100) + (p / 15700 + 0.32) + 1) * 100; }
+function twdToINR(p) { return (p * 4) + 100; }
+function cnyToINR(p) { return (p * 16.6) + 100; }
+function krwToINR(p) { return (p * 0.07) + 100; } // Placeholder: Replace 0.07 with your rate
+function jpyToINR(p) { return (p * 0.62) + 100; } // Placeholder: Replace 0.62 with your rate
 
-function idrToINR(r) {
-    const p = (r / 15700) + 0.32;
-    return ((((p * 4) / 100) + p) + 1) * 100;
+function getConvertedValue(amount) {
+    switch(mode) {
+        case 'thb': return thbToINR(amount);
+        case 'idr': return idrToINR(amount);
+        case 'twd': return twdToINR(amount);
+        case 'cny': return cnyToINR(amount);
+        case 'krw': return krwToINR(amount);
+        case 'jpy': return jpyToINR(amount);
+        default: return 0;
+    }
 }
 
 function setMode(m) {
     mode = m;
-    document.getElementById('tab-thb').classList.toggle('active', m === 'thb');
-    document.getElementById('tab-idr').classList.toggle('active', m === 'idr');
-    document.getElementById('disp-from').textContent = m === 'thb' ? 'THAI BAHT → INR' : 'INDONESIAN IDR → INR';
-    document.getElementById('disp-mode').textContent = m === 'thb' ? 'THB' : 'IDR';
-    document.getElementById('input-label').textContent = m === 'thb' ? 'BAHT AMOUNT' : 'RUPIAH AMOUNT';
+    // Update active tab UI
+    const allTabs = ['thb', 'idr', 'twd', 'cny', 'krw', 'jpy'];
+    allTabs.forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('active', t === m);
+    });
+
+    // Update Display Labels
+    const labels = {
+        'thb': ['THB → INR', 'THB', 'BAHT AMOUNT'],
+        'idr': ['IDR → INR', 'IDR', 'RUPIAH AMOUNT'],
+        'twd': ['TWD → INR', 'TWD', 'NT DOLLAR AMOUNT'],
+        'cny': ['CNY → INR', 'CNY', 'YUAN AMOUNT'],
+        'krw': ['KRW → INR', 'KRW', 'WON AMOUNT'],
+        'jpy': ['JPY → INR', 'JPY', 'YEN AMOUNT']
+    };
+    
+    document.getElementById('disp-from').textContent = labels[m][0];
+    document.getElementById('disp-mode').textContent = labels[m][1];
+    document.getElementById('input-label').textContent = labels[m][2];
+    
     calculate();
 }
 
 function calculate() {
     const amt = parseFloat(document.getElementById('amount').value) || 0;
-    // Base Price display still shows conversion for just the item
-    baseINR = mode === 'thb' ? thbToINR(amt) : idrToINR(amt);
+    baseINR = getConvertedValue(amt);
     document.getElementById('disp-value').textContent = baseINR.toFixed(2);
     updateTotal();
 }
 
 function updateTotal() {
-    // 1. Get all raw values (THB or IDR)
     const amt = parseFloat(document.getElementById('amount').value) || 0;
     const shipping = parseFloat(document.getElementById('fee-shipping').value) || 0;
     const other = parseFloat(document.getElementById('fee-other').value) || 0;
 
-    // 2. Sum them up in the original currency
     const totalRaw = amt + shipping + other;
+    const finalTotalINR = getConvertedValue(totalRaw);
 
-    // 3. Convert the entire sum to INR
-    const finalTotalINR = mode === 'thb' ? thbToINR(totalRaw) : idrToINR(totalRaw);
-
-    // 4. Update the display
     document.getElementById('total-val').textContent = '₹ ' + finalTotalINR.toFixed(2);
 }
 
+// Galaxy Generator
 function createPixelGalaxy() {
     const starContainer = document.getElementById('stars');
     if (!starContainer) return;
     starContainer.innerHTML = '';
     const colors = ['color-cyan', 'color-pink', 'color-white', 'color-purple'];
     const types = ['pixel-heart', 'pixel-star', 'pixel-circle'];
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 95; i++) {
         const el = document.createElement('div');
-        const typeClass = types[Math.floor(Math.random() * types.length)];
-        const colorClass = colors[Math.floor(Math.random() * colors.length)];
-        el.className = `pixel-element ${typeClass} ${colorClass}`;
+        el.className = `pixel-element ${types[Math.floor(Math.random()*3)]} ${colors[Math.floor(Math.random()*4)]}`;
         el.style.left = Math.random() * 100 + 'vw';
         const duration = Math.random() * 15 + 10; 
         el.style.setProperty('--duration', `${duration}s`);
         el.style.animationDelay = `-${Math.random() * duration}s`;
-        const scale = Math.random() * 0.7 + 0.3;
-        el.style.transform = `scale(${scale})`;
+        el.style.transform = `scale(${Math.random() * 0.7 + 0.3})`;
         starContainer.appendChild(el);
     }
 }
