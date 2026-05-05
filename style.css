@@ -58,7 +58,7 @@ body {
 
 .card-topper {
     position: absolute; 
-    top: -65px; /* Adjust this so she sits right on the edge */
+    top: -75px; /* Adjust this so she sits right on the edge */
     left: 50%; 
     transform: translateX(-50%);
     width: 135px; 
@@ -83,7 +83,7 @@ body {
 /* --- 2x3 TABS GRID FIX (FORCED) --- */
 .tabs { 
     display: grid !important; 
-    grid-template-columns: repeat(2, 1fr) !important; /* Forces 2 columns */
+    grid-template-columns: repeat(3, 1fr) !important; /* Forces 2 columns */
     gap: 10px !important; 
     margin-bottom: 15px !important; 
 }
@@ -92,7 +92,7 @@ body {
     background: transparent !important; 
     border: 1.5px solid var(--accent) !important; 
     color: #ffffff !important; /* FORCED WHITE FONT */
-    padding: 10px 2px !important; 
+    padding: 8px 2px !important; 
     font-size: 7px !important; 
     cursor: pointer !important; 
     font-family: 'Press Start 2P', monospace !important; 
