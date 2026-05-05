@@ -64,7 +64,7 @@ body {
 
 .card-topper {
     position: absolute; 
-    top: -65px; /* Desktop height */
+    top: -95px; /* Desktop height */
     left: 50%; 
     transform: translateX(-50%);
     width: 135px; 
