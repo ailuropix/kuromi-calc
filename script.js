@@ -2,11 +2,11 @@ let mode = 'thb';
 let baseINR = 0;
 
 // --- CONVERSION FORMULAS ---
-function thbToINR(p) { return ((((p * 595 / 15700 + 0.32) * 4 / 100) + (p * 595 / 15700 + 0.32)) + 0.5) * 100; }
+function thbToINR(p) { return ((((p * 600 / 15700 + 0.32) * 4 / 100) + (p * 595 / 15700 + 0.32)) + 0.5) * 100; }
 function idrToINR(p) { return (((p / 15700 + 0.32) * 4 / 100) + (p / 15700 + 0.32) + 1) * 100; }
 function twdToINR(p) { return (p * 4) + 100; } 
 function cnyToINR(p) { return (p * 17) + 100; } // UPDATED: price * 17 + 100
-function krwToINR(p) { return (p * 0.075) + 100; } 
+function krwToINR(p) { return (p / 10) + 25; } 
 function jpyToINR(p) { return (((p + 200) / 125) * 100) + 50; }  
 
 function getConvertedValue(amount) {
